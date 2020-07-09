@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="85233">
+        <Style id="85236">
+            <IconStyle id="85238">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85239">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85237">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85242">
+            <IconStyle id="85244">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85245">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85243">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85248">
+            <IconStyle id="85250">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85251">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85249">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85254">
+            <IconStyle id="85256">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85257">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85255">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85260">
+            <IconStyle id="85262">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85263">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85261">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85266">
+            <IconStyle id="85268">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85269">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85267">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85272">
+            <IconStyle id="85274">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85275">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85273">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85278">
+            <IconStyle id="85280">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85281">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85279">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85284">
+            <IconStyle id="85286">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85287">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85285">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85290">
+            <IconStyle id="85292">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85293">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85291">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85296">
+            <IconStyle id="85298">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85299">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85297">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Style id="85302">
+            <IconStyle id="85304">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="85305">
+                    <href>satelliteimage.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="85303">
+                <colorMode>normal</colorMode>
+                <scale>1.5</scale>
+            </LabelStyle>
+        </Style>
+        <Placemark id="85235">
+            <name>STARLINK-1114           </name>
+            <styleUrl>#85236</styleUrl>
+            <Point id="85234">
+                <coordinates>-65:42:47.4,30:14:09.9,550817.8125</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85241">
+            <name>STARLINK-1130 (DARKSAT) </name>
+            <styleUrl>#85242</styleUrl>
+            <Point id="85240">
+                <coordinates>-82:32:20.4,42:04:36.3,553148.5625</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85247">
+            <name>STARLINK-1205           </name>
+            <styleUrl>#85248</styleUrl>
+            <Point id="85246">
+                <coordinates>-72:15:06.0,51:41:07.0,554974.6875</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85253">
+            <name>STARLINK-1216           </name>
+            <styleUrl>#85254</styleUrl>
+            <Point id="85252">
+                <coordinates>-55:40:14.2,52:09:11.9,554996.875</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85259">
+            <name>STARLINK-1237           </name>
+            <styleUrl>#85260</styleUrl>
+            <Point id="85258">
+                <coordinates>-85:10:58.3,51:56:57.1,555154.6875</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85265">
+            <name>STARLINK-1105           </name>
+            <styleUrl>#85266</styleUrl>
+            <Point id="85264">
+                <coordinates>-88:56:46.9,51:07:41.6,554649.625</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85271">
+            <name>STARLINK-1212           </name>
+            <styleUrl>#85272</styleUrl>
+            <Point id="85270">
+                <coordinates>-64:48:25.1,43:14:25.3,553198.0625</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85277">
+            <name>STARLINK-1339           </name>
+            <styleUrl>#85278</styleUrl>
+            <Point id="85276">
+                <coordinates>-74:25:04.4,29:28:07.7,550657.1875</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85283">
+            <name>STARLINK-1374           </name>
+            <styleUrl>#85284</styleUrl>
+            <Point id="85282">
+                <coordinates>-57:50:04.3,41:28:35.8,552792.25</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85289">
+            <name>STARLINK-1441           </name>
+            <styleUrl>#85290</styleUrl>
+            <Point id="85288">
+                <coordinates>-58:06:59.4,52:32:13.8,452651.5</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85295">
+            <name>STARLINK-1442           </name>
+            <styleUrl>#85296</styleUrl>
+            <Point id="85294">
+                <coordinates>-81:25:42.7,47:51:53.0,452654.125</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+        <Placemark id="85301">
+            <name>STARLINK-1409           </name>
+            <styleUrl>#85302</styleUrl>
+            <Point id="85300">
+                <coordinates>-63:21:37.7,51:57:41.2,453345.96875</coordinates>
+                <extrude>1</extrude>
+                <altitudeMode>relativeToGround</altitudeMode>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
