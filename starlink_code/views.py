@@ -10,9 +10,20 @@ def hello_world(request):
     return render(request, 'index.html', {'directory':direc})
 
 def download_file(request):
-    functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE', "networklink.kml")
+    functions.networkLink("networklink.kml","http://localhost:8000/downloadupdate")
+    functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
 
-    file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
+    file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
+
+def download_update(request):
+    functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")

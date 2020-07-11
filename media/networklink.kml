@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <NetworkLink id="2">
+            <name>Network Link</name>
+            <Link id="3">
+                <href>http://localhost:8000/downloadupdate</href>
+                <refreshMode>onInterval</refreshMode>
+                <refreshInterval>10</refreshInterval>
+            </Link>
+        </NetworkLink>
+    </Document>
+</kml>
