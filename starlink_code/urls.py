@@ -3,5 +3,6 @@ from starlink_code import views
 
 urlpatterns = [
     path('', views.hello_world, name='hello_world'),
-    path('download', views.download_file, name='df'),
+    path('downloadfile', views.download_file, name='df'),
+    path('downloadicon', views.download_icon, name='di'),
 ]
