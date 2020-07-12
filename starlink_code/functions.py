@@ -5,10 +5,28 @@ import requests
 import time
 import os
 from satellite_tracker import settings
+from starlink_code.models import satelliteTLE
 
+def populateDB(url):
+    raw = []
+    tle = []
+    try:
+        req = requests.get(url)
+        text = req.text
+        newtext = text.encode("ascii","ignore")
+        raw = newtext.splitlines()
+        tle = [raw[i:i+3] for i in range(0, len(raw), 3)]
+    except:
+        print("Data could not be returned - check if URL is correct and serving properly")
 
-def getWD():
-    return os.getcwd()
+    try:
+        for i in tle:
+            s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[0].decode("utf-8"), L2=i[2].decode("utf-8"))
+            s.save()
+        print(satelliteTLE.objects.all())
+    except:
+        print("error adding to DB")
+    return
 
 def getTLE(url):
     raw = []

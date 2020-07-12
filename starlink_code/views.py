@@ -10,8 +10,9 @@ def hello_world(request):
     return render(request, 'index.html', {'directory':direc})
 
 def download_file(request):
-    functions.networkLink("networklink.kml","http://localhost:8000/downloadupdate")
-    functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    functions.populateDB('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    #functions.networkLink("networklink.kml","http://localhost:8000/downloadupdate")
+    #functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
 
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
