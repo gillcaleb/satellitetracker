@@ -1,1 +1,108 @@
-<h1> test page! </h1>
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>My Webpage</title>
+        <link rel="stylesheet" href="{% static 'starlink_code/style.css' %}">
+    </head>
+    <body>
+      <nav class="navbar navbar-light ">
+          <a class="navbar-brand" href="index.html">Starlink tracker</a>
+          <div class="navbar navbar-expand" id="navbarSupportedContent">
+              <ul class = "navbar-nav">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="contact.html"> Contact Us </a> -->
+                  </li>
+                </ul>
+          </div>
+      </nav>
+      <div class="container" id="inputFormHead">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <h2> Input Your Information </h2>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <form>
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                    <select class="custom-select custom-select mb-3">
+                        <option selected>Select Satellite Constellation</option>
+                        <option value="One">Starlink</option>
+                        <option value="Two">Iridium</option>
+                        <option value="Three">ISS</option>
+                    </select>
+                </div>
+              </div>
+
+              <div class="form row">
+                <div class="col-md-4 mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <label class="form-check-label" for="gridCheck1">
+                      Entire constellation
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom01">Observer Latitude</label>
+                  <input type="number" class="form-control" id="validationCustom01" placeholder="0.0"  required>
+                  <div class="invalid-feedback">
+                    Enter a valid latitude between -90 and 90
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustom02">Observer Longitude</label>
+                  <input type="number" class="form-control" id="validationCustom02" placeholder="0.0"  required>
+                  <div class="invalid-feedback">
+                    Enter a valid longitude between -180 and 180
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Refresh Rate</label>
+                <div class="col-sm-2">
+                  <input type="number" class="form-control" id="validationCustom01" placeholder="15"  required>
+                  <div class="invalid-feedback">
+                    Invalid input. Please enter the desired refresh rate in seconds.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">File Name</label>
+                <div class="input-group col-sm-4">
+                  <input type="text" class="form-control" placeholder="KML name" aria-label="KML name" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">.kml</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Start Tracking!</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

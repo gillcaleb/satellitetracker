@@ -10,7 +10,7 @@ def hello_world(request):
     return render(request, 'index.html', {'directory':direc})
 
 def test_feature(request):
-    functions.referenceDB(settings.UPDATE_URL)
+    #functions.referenceDB(settings.UPDATE_URL)
     return render(request, 'test.html')
 
 def download_file(request):
