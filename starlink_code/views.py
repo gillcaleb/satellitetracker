@@ -9,10 +9,14 @@ def hello_world(request):
     direc = settings.MEDIA_ROOT
     return render(request, 'index.html', {'directory':direc})
 
+def test_feature(request):
+    functions.referenceDB(settings.UPDATE_URL)
+    return render(request, 'test.html')
+
 def download_file(request):
-    functions.populateDB('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    #functions.populateDB('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
     #functions.networkLink("networklink.kml","http://localhost:8000/downloadupdate")
-    #functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    functions.initializeFile()
 
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
@@ -23,7 +27,7 @@ def download_file(request):
     raise Http404
 
 def download_update(request):
-    functions.initializeFile('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
+    functions.initializeFile()
     file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:

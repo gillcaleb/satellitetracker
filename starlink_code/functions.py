@@ -7,6 +7,14 @@ import os
 from satellite_tracker import settings
 from starlink_code.models import satelliteTLE
 
+def syncDB(URL):
+    try:
+        satelliteTLE.objects.all().delete()
+        populateDB(URL)
+    except:
+        "Error in syncing DB"
+    return
+
 def populateDB(url):
     raw = []
     tle = []
@@ -21,11 +29,15 @@ def populateDB(url):
 
     try:
         for i in tle:
-            s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[0].decode("utf-8"), L2=i[2].decode("utf-8"))
+            s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[1].decode("utf-8"), L2=i[2].decode("utf-8"))
             s.save()
-        print(satelliteTLE.objects.all())
     except:
         print("error adding to DB")
+    return
+
+def referenceDB(TLE_URL):
+    syncDB(TLE_URL)
+    print("sync finished")
     return
 
 def getTLE(url):
@@ -54,6 +66,25 @@ def generateLineString(tleList,kmlfile,timeoffset):
         currentline.coords = [past, future]
         currentline.altitudemode = simplekml.AltitudeMode.clamptoground
 
+def generateKMLDB(kml):
+    time = datetime.now()
+    station = setObserver('42.3601','-71.0589',time)
+    for tle in satelliteTLE.objects.all():
+        sat = ephem.readtle(tle.name, tle.L1, tle.L2)
+        sat.compute(station)
+        if sat.alt > ephem.degrees('9.0'):
+            sat.compute(time)
+            currentSat = kml.newpoint(name=tle.name)
+            currentSat.coords = [(sat.sublong, sat.sublat, sat.elevation)]
+            currentSat.altitudemode = simplekml.AltitudeMode.relativetoground
+            currentSat.extrude = 1
+            currentSat.style.labelstyle.scale = 1.5
+            currentSat.style.iconstyle.icon.href = 'downloadicon'
+    #generateLineString(tleList,kml,5)
+
+    filename =  os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
+    kml.save(filename)
+    return
 
 def generateKML(kml, tleList):
     time = datetime.now()
@@ -68,7 +99,7 @@ def generateKML(kml, tleList):
             currentSat.altitudemode = simplekml.AltitudeMode.relativetoground
             currentSat.extrude = 1
             currentSat.style.labelstyle.scale = 1.5
-            currentSat.style.iconstyle.icon.href = 'http://localhost:8000/downloadicon'
+            currentSat.style.iconstyle.icon.href ='downloadicon'
     #generateLineString(tleList,kml,5)
 
     filename =  os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
@@ -89,18 +120,17 @@ def networkLink(name,URL):
     netlink.link.href = URL
     netlink.link.refreshinterval = 10
     netlink.link.refreshmode = simplekml.RefreshMode.oninterval
-    filename = filename =  os.path.join(settings.MEDIA_ROOT, name)
+    filename =  os.path.join(settings.MEDIA_ROOT, name)
     kml.save(filename)
     return
 
 
-def initializeFile(TLE_URL):
-    tleList = getTLE(TLE_URL)
+def initializeFile():
     file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
     if os.path.exists(file_path):
         os.remove(file_path)
     kml = simplekml.Kml()
-    generateKML(kml, tleList)
+    generateKMLDB(kml)
 
 """
 if __name__ in "__main__":
