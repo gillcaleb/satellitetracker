@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
+
 <html>
     <head>
         <title>My Webpage</title>
@@ -28,16 +30,16 @@
         <div class="row">
           <div class="col-3"></div>
           <div class="col-6">
-            <form>
+            <form  method="post">
+              {% csrf_token %}
               <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <!-- <label for="{{ form.email.id_for_label }}" class="col-sm-2 col-form-label">Email</label> -->
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                  {{form.email | as_crispy_field}}<!--<input type="email" class="form-control" id="inputEmail3" placeholder="Email"> -->
                 </div>
               </div>
 
               <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
                     <select class="custom-select custom-select mb-3">
                         <option selected>Select Satellite Constellation</option>
@@ -51,22 +53,17 @@
               <div class="form row">
                 <div class="col-md-4 mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck1">
-                    <label class="form-check-label" for="gridCheck1">
-                      Entire constellation
-                    </label>
+                    {{form.view | as_crispy_field}}
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label for="validationCustom01">Observer Latitude</label>
-                  <input type="number" class="form-control" id="validationCustom01" placeholder="0.0"  required>
+                    {{form.lat | as_crispy_field}}<!-- <input type="number" class="form-control" id="validationCustom01" placeholder="0.0"  > -->
                   <div class="invalid-feedback">
                     Enter a valid latitude between -90 and 90
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label for="validationCustom02">Observer Longitude</label>
-                  <input type="number" class="form-control" id="validationCustom02" placeholder="0.0"  required>
+                  {{form.long | as_crispy_field}}
                   <div class="invalid-feedback">
                     Enter a valid longitude between -180 and 180
                   </div>
@@ -74,19 +71,15 @@
               </div>
 
               <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-3 col-form-label">Refresh Rate</label>
-                <div class="col-sm-2">
-                  <input type="number" class="form-control" id="validationCustom01" placeholder="15"  required>
+                <div class="col-sm-3">
+                  {{form.refresh | as_crispy_field}}
                   <div class="invalid-feedback">
                     Invalid input. Please enter the desired refresh rate in seconds.
                   </div>
                 </div>
-              </div>
 
-              <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-3 col-form-label">File Name</label>
                 <div class="input-group col-sm-4">
-                  <input type="text" class="form-control" placeholder="KML name" aria-label="KML name" aria-describedby="basic-addon2">
+                 {{form.filename | as_crispy_field}}
                   <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">.kml</span>
                   </div>

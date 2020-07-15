@@ -26,7 +26,7 @@ SECRET_KEY = '=k7s@comr40x3ixad$5@xk%bj7mm=rz7&-jc2q^w3!^)md(b7x'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+HOST_ROOT = ""
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'starlink_code',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -54,11 +55,16 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
+
+#non default additions to settings.py
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
     'https://earth.google.com',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#end additions 
 
 ROOT_URLCONF = 'satellite_tracker.urls'
 
@@ -131,3 +137,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE'
