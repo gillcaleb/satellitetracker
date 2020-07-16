@@ -6,6 +6,21 @@ import os
 from .forms import configForm
 # Create your views here.
 
+def index(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        functions.networkLink("networklink.kml",10)
+        functions.initializeFile()
+
+        file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
+    return render(request, 'index.html')
+
 def get_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -14,31 +29,36 @@ def get_form(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
-            print("FORM VALIDATED")
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            if form.data['view'] == "on":
+                functions.networkLink(form.data['filename'], form.data['refresh'])
+                functions.initializeFile()
+
+                file_path = os.path.join(settings.MEDIA_ROOT, form.data['filename'])
+                if os.path.exists(file_path):
+                    with open(file_path, 'rb') as fh:
+                        response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
+                        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                        return response
+                raise Http404
+
+            else:
+                return render(request, 'submitted.html')
 
         else:
             print(form.errors)
-
     # if a GET (or any other method) we'll create a blank form
     else:
         form = configForm()
 
-    return render(request, 'test.html', {'form': form})
-
-def hello_world(request):
-    direc = settings.MEDIA_ROOT
-    return render(request, 'index.html', {'directory':direc})
+    return render(request, 'form.html', {'form': form})
 
 def test_feature(request):
-    #functions.referenceDB(settings.UPDATE_URL)
-    return render(request, 'test.html')
+    functions.referenceDB(settings.UPDATE_URL)
+    return render(request, 'index.html')
 
 def download_file(request):
     #functions.populateDB('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
-    #functions.networkLink("networklink.kml","http://localhost:8000/downloadupdate")
+    functions.networkLink("networklink.kml",10)
     functions.initializeFile()
 
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")

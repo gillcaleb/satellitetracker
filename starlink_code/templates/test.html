@@ -41,12 +41,7 @@
 
               <div class="form-group row">
                   <div class="col-sm-10">
-                    <select class="custom-select custom-select mb-3">
-                        <option selected>Select Satellite Constellation</option>
-                        <option value="One">Starlink</option>
-                        <option value="Two">Iridium</option>
-                        <option value="Three">ISS</option>
-                    </select>
+                    {{form.constellation | as_crispy_field}}
                 </div>
               </div>
 

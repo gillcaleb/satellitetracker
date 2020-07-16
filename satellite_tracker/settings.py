@@ -64,7 +64,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-#end additions 
+#end additions
 
 ROOT_URLCONF = 'satellite_tracker.urls'
 
@@ -139,3 +139,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE'
+#UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=GEO&FORMAT=TLE'
