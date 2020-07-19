@@ -7,51 +7,52 @@ import os
 from satellite_tracker import settings
 from starlink_code.models import satelliteTLE
 
-def syncDB(URL):
-    try:
-        satelliteTLE.objects.all().delete()
-        populateDB(URL)
-    except:
-        "Error in syncing DB"
-    return
+#Database functions============================================================
 
-def populateDB(url):
-    raw = []
-    tle = []
-    try:
-        req = requests.get(url)
-        text = req.text
-        newtext = text.encode("ascii","ignore")
-        raw = newtext.splitlines()
-        tle = [raw[i:i+3] for i in range(0, len(raw), 3)]
-    except:
-        print("Data could not be returned - check if URL is correct and serving properly")
+#Update database - this will run priodically
+def updateDB():
 
-    try:
-        for i in tle:
-            s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[1].decode("utf-8"), L2=i[2].decode("utf-8"))
+    #implement file hash comparison or last update check here
+
+
+    #Fetch data from Celestrak
+    sats = fetchTLES(settings.UPDATE_URL)
+
+    #Iterate over list of satellites
+    for sat in sats:
+
+        #Query based on name
+        q1 = satelliteTLE.objects.filter(name=sat[0].decode("utf-8"))
+
+        #if satellite is NOT present, add it to the table
+        if not q1:
+            print('Satellite not found')
+            s = satelliteTLE(name=sat[0].decode("utf-8"), L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
             s.save()
-    except:
-        print("error adding to DB")
+        #if satellite is present, update the TLE L1 and L2
+        else:
+            q1.update(L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
+
     return
 
-def referenceDB(TLE_URL):
-    syncDB(TLE_URL)
-    print("sync finished")
-    return
-
-def getTLE(url):
+#Fetch data from celestrak
+def fetchTLES(URL):
     raw = []
     tle = []
     try:
-        req = requests.get(url)
+        req = requests.get(URL)
         text = req.text
         newtext = text.encode("ascii","ignore")
         raw = newtext.splitlines()
         tle = [raw[i:i+3] for i in range(0, len(raw), 3)]
+        return tle
     except:
-        print("Data could not be returned - check if URL is correct and serving properly")
-    return tle
+        print("Data could not be returned from Celestrak - check if URL is correct and serving properly")
+        return
+
+#End database functions========================================================
+
+
 
 #TODO: raise line to satellite elevation, fix issue of incorrect lines
 def generateLineString(tleList,kmlfile,timeoffset):

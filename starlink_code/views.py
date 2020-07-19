@@ -4,11 +4,14 @@ from starlink_code import functions
 from django.http import HttpResponse
 import os
 from .forms import configForm
-# Create your views here.
+
+def test(request):
+    functions.updateDB()
+    return render(request, 'index.html')
 
 def index(request):
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        # if buton is pressed, return default 10sec refresh with link to the starlink file
         functions.networkLink("networklink.kml",10)
         functions.initializeFile()
 
@@ -52,12 +55,7 @@ def get_form(request):
 
     return render(request, 'form.html', {'form': form})
 
-def test_feature(request):
-    functions.referenceDB(settings.UPDATE_URL)
-    return render(request, 'index.html')
-
 def download_file(request):
-    #functions.populateDB('https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE')
     functions.networkLink("networklink.kml",10)
     functions.initializeFile()
 
