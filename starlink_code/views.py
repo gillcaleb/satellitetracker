@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from satellite_tracker import settings
 from starlink_code import functions
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 import os
 from .forms import configForm
 
@@ -15,7 +15,7 @@ def index(request):
         functions.networkLink("networklink.kml",10)
         functions.initializeFile()
 
-        file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
+        file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:
                 response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
