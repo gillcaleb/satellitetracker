@@ -25,7 +25,8 @@ SECRET_KEY = '=k7s@comr40x3ixad$5@xk%bj7mm=rz7&-jc2q^w3!^)md(b7x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+STATIC_IP = 'localhost'
+ALLOWED_HOSTS = [STATIC_IP]
 HOST_ROOT = ""
 
 # Application definition

@@ -115,7 +115,7 @@ def setObserver(lat,lon,time):
 def networkLink(name,refresh):
     kml = simplekml.Kml()
     netlink = kml.newnetworklink(name="Network Link")
-    netlink.link.href = 'http://localhost:8000/downloadupdate'
+    netlink.link.href = 'http://'+ settings.STATIC_IP + ':8000/downloadupdate'
     netlink.link.refreshinterval = refresh
     netlink.link.refreshmode = simplekml.RefreshMode.oninterval
     filename =  os.path.join(settings.MEDIA_ROOT, name)

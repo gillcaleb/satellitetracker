@@ -11,7 +11,7 @@ def test(request):
 
 def index(request):
     if request.method == 'POST':
-        # if buton is pressed, return default 10sec refresh with link to the starlink file
+        # if button is pressed, return default 10sec refresh with link to the starlink file
         functions.networkLink("networklink.kml",10)
         functions.initializeFile()
 
