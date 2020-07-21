@@ -1,5 +1,6 @@
 import ephem
 from datetime import datetime, timedelta
+from background_task import background
 import simplekml
 import requests
 import time
@@ -9,11 +10,14 @@ from starlink_code.models import satelliteTLE
 
 #Database functions============================================================
 
-#Update database - this will run priodically
+#TODO:
+#1. Implement as background task that runs daily
+#2. Implement a "check" function to determine if the TLEs are newtext
+#3. Future: update multiple tables
+#Update database - this will run periodically
 def updateDB():
 
     #implement file hash comparison or last update check here
-
 
     #Fetch data from Celestrak
     sats = fetchTLES(settings.UPDATE_URL)
@@ -26,9 +30,9 @@ def updateDB():
 
         #if satellite is NOT present, add it to the table
         if not q1:
-            print('Satellite not found')
-            s = satelliteTLE(name=sat[0].decode("utf-8"), L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
-            s.save()
+            if "FALCON" not in sat[0].decode("utf-8"):
+                s = satelliteTLE(name=sat[0].decode("utf-8"), L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
+                s.save()
         #if satellite is present, update the TLE L1 and L2
         else:
             q1.update(L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
@@ -57,8 +61,8 @@ def fetchTLES(URL):
 #TODO: raise line to satellite elevation, fix issue of incorrect lines
 def generateLineString(tleList,kmlfile,timeoffset):
 
-    for tle in tleList:
-        sat = ephem.readtle(tle[0].decode("utf-8"),tle[1].decode("utf-8"), tle[2].decode("utf-8"))
+    for tle in satelliteTLE.objects.all():
+        sat = ephem.readtle(tle.name, tle.L1, tle.L2)
         sat.compute(datetime.now() - timedelta(minutes=timeoffset))
         past = (sat.sublong, sat.sublat, sat.elevation)
         sat.compute(datetime.now() + timedelta(minutes=timeoffset))
@@ -87,7 +91,8 @@ def generateKMLObserver(kml, latitude, longitude):
     kml.save(filename)
     return
 
-def generateKMLConstellation(kml):
+def generateKMLConstellation(filename):
+    kml = simplekml.Kml()
     time = datetime.now()
     for tle in satelliteTLE.objects.all():
         sat = ephem.readtle(tle.name, tle.L1, tle.L2)
@@ -98,9 +103,8 @@ def generateKMLConstellation(kml):
         currentSat.extrude = 1
         currentSat.style.labelstyle.scale = 1.5
         currentSat.style.iconstyle.icon.href = 'downloadicon'
-    #generateLineString(tleList,kml,5)
 
-    filename =  os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
+    filename =  os.path.join(settings.MEDIA_ROOT, filename)
     kml.save(filename)
     return
 
@@ -122,10 +126,8 @@ def networkLink(name,refresh):
     kml.save(filename)
     return
 
-
-def initializeFile():
-    file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
+def updateStarLink():
+    file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
     if os.path.exists(file_path):
         os.remove(file_path)
-    kml = simplekml.Kml()
-    generateKMLConstellation(kml)
+    generateKMLConstellation('starlink.kml')

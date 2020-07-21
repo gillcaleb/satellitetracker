@@ -20,9 +20,9 @@ class Command(BaseCommand):
         #add cleaned data to the satelliteTLE model
         try:
             for i in tle:
-
-                s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[1].decode("utf-8"), L2=i[2].decode("utf-8"))
-                s.save()
+                if "FALCON" not in i[0].decode("utf-8"):
+                    s = satelliteTLE(name=i[0].decode("utf-8"), L1=i[1].decode("utf-8"), L2=i[2].decode("utf-8"))
+                    s.save()
             print(satelliteTLE.objects.all().count())
         except:
             print("Error adding data to DB")

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'starlink_code',
     'crispy_forms',
+    'background_task',
 ]
 
 MIDDLEWARE = [
