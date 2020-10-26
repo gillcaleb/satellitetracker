@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import dj_database_url
+import environ
+#import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,13 +94,17 @@ WSGI_APPLICATION = 'satellite_tracker.wsgi.application'
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# False if not in os.environ
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 
-SECRET_KEY = 'SECRET_KEY'
-DEBUG = 'DEBUG'
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+    'default': env.db(),
 }
 
 
