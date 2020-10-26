@@ -94,8 +94,8 @@ WSGI_APPLICATION = 'satellite_tracker.wsgi.application'
 #    }
 #}
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = 'SECRET_KEY'
+DEBUG = 'DEBUG'
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
