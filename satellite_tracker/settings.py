@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 STATIC_IP = 'https://starlinksatelliteapp.herokuapp.com'
-ALLOWED_HOSTS = ['https://starlinksatelliteapp.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 HOST_ROOT = ""
 
 # Application definition
