@@ -12,7 +12,6 @@ def test(request):
 def index(request):
     if request.method == 'POST':
         # if button is pressed, return default 10sec refresh with link to the starlink file
-        functions.networkLink("networklink.kml",10)
         functions.updateStarLink()
         file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
         if os.path.exists(file_path):
