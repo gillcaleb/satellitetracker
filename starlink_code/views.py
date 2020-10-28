@@ -12,7 +12,6 @@ def test(request):
 def index(request):
     if request.method == 'POST':
         # if button is pressed, return default 10sec refresh with link to the starlink file
-        functions.updateStarLink()
         file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:
@@ -55,9 +54,6 @@ def get_form(request):
     return render(request, 'form.html', {'form': form})
 
 def download_file(request):
-    functions.networkLink("networklink.kml",10)
-    functions.updateStarLink()
-
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:

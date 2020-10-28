@@ -58,6 +58,7 @@ def networkLink(name,refresh):
     kml.save(filename)
     return
 
+@background(schedule=12)
 def updateStarLink():
     file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
     if os.path.exists(file_path):
