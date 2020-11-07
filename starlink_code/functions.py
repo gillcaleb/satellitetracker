@@ -6,7 +6,7 @@ import requests
 import time
 import os
 from satellite_tracker import settings
-from starlink_code.models import satelliteTLE
+#from starlink_code.models import satelliteTLE
 
 satellite_array = []
 
