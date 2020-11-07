@@ -65,9 +65,8 @@ CORS_ORIGIN_WHITELIST = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #end additions
-CSRF_COOKIE_DOMAIN = '.google.com' 
-CSRF_TRUSTED_ORIGINS = '.google.com'
-
+CSRF_COOKIE_DOMAIN = ['.google.com', 'starlinksatelliteapp.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['.google.com', 'starlinksatelliteapp.herokuapp.com']
 ROOT_URLCONF = 'satellite_tracker.urls'
 
 TEMPLATES = [
