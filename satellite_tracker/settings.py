@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'starlink_code',
     'crispy_forms',
-    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +55,7 @@ MIDDLEWARE = [
 
 #non default additions to settings.py
 CORS_ORIGIN_ALLOW_ALL = False
-
+CORS_REPLACE_HTTPS_REFERER = True
 CORS_ORIGIN_WHITELIST = (
     'https://earth.google.com',
 )
