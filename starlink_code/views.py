@@ -4,6 +4,7 @@ from starlink_code import functions
 from django.http import HttpResponse, Http404
 import os
 from .forms import configForm
+from django.views.decorators.csrf import requires_csrf_token
 
 def test(request):
     functions.updateDB()
@@ -53,6 +54,7 @@ def get_form(request):
 
     return render(request, 'form.html', {'form': form})
 
+@requires_csrf_token
 def download_file(request):
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
@@ -62,6 +64,7 @@ def download_file(request):
             return response
     raise Http404
 
+@requires_csrf_token
 def download_update(request):
     functions.updateStarLink()
     file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
@@ -72,6 +75,7 @@ def download_update(request):
             return response
     raise Http404
 
+@requires_csrf_token
 def download_icon(request):
     file_path = os.path.join(settings.MEDIA_ROOT, 'satelliteimage.png')
     if os.path.exists(file_path):
