@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 STATIC_IP = 'https://starlinksatelliteapp.herokuapp.com'
 ALLOWED_HOSTS = ['*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 HOST_ROOT = ""
 
 # Application definition
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 
+
+
 #non default additions to settings.py
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_REPLACE_HTTPS_REFERER = True
@@ -62,6 +65,8 @@ CORS_ORIGIN_WHITELIST = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #end additions
+CSRF_COOKIE_DOMAIN = '.google.com' 
+CSRF_TRUSTED_ORIGINS = '.google.com'
 
 ROOT_URLCONF = 'satellite_tracker.urls'
 
