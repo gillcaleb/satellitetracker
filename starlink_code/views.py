@@ -10,6 +10,7 @@ def test(request):
     functions.updateDB()
     return render(request, 'index.html')
 
+@requires_csrf_token
 def index(request):
     if request.method == 'POST':
         # if button is pressed, return default 10sec refresh with link to the starlink file
