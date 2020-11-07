@@ -1,6 +1,5 @@
 import ephem
 from datetime import datetime, timedelta
-from background_task import background
 import simplekml
 import requests
 import time
@@ -58,7 +57,6 @@ def networkLink(name,refresh):
     kml.save(filename)
     return
 
-@background(schedule=12)
 def updateStarLink():
     file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
     if os.path.exists(file_path):
