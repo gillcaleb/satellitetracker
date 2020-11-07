@@ -10,5 +10,5 @@ urlpatterns = [
     path('downloadupdate', views.download_update, name='du'),
 ]
 
-functions.networkLink("networklink.kml",10)
+functions.networkLink("networklink.kml",65)
 functions.updateStarLink()
