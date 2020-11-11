@@ -6,6 +6,7 @@ import os
 from .forms import configForm
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+@ensure_csrf_cookie
 def test(request):
     functions.updateDB()
     return render(request, 'index.html')
@@ -13,7 +14,6 @@ def test(request):
 @ensure_csrf_cookie
 def index(request):
     if request.method == 'POST':
-        # if button is pressed, return default 10sec refresh with link to the starlink file
         file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:
@@ -23,6 +23,7 @@ def index(request):
         raise Http404
     return render(request, 'index.html')
 
+@ensure_csrf_cookie
 def get_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
