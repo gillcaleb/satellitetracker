@@ -64,7 +64,7 @@ def download_file(request):
             response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
-    raise Http404
+    return render(request, 'index.html')
 
 @csrf_protect
 def download_update(request):
@@ -76,6 +76,7 @@ def download_update(request):
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
     raise Http404
+
 
 @csrf_protect
 def download_icon(request):

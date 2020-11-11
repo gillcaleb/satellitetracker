@@ -17,7 +17,7 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+CSRF_HEADER_NAME = "HTTP_X_XSRF_TOKEN"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 STATIC_IP = 'https://starlinksatelliteapp.herokuapp.com'
