@@ -4,14 +4,14 @@ from starlink_code import functions
 from django.http import HttpResponse, Http404
 import os
 from .forms import configForm
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie
 
-@csrf_protect
+@ensure_csrf_cookie
 def test(request):
     functions.updateDB()
     return render(request, 'index.html')
 
-@csrf_protect
+@ensure_csrf_cookie
 def index(request):
     if request.method == 'POST':
         file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
@@ -23,7 +23,7 @@ def index(request):
         raise Http404
     return render(request, 'index.html')
 
-@csrf_protect
+@ensure_csrf_cookie
 def get_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -56,7 +56,7 @@ def get_form(request):
 
     return render(request, 'form.html', {'form': form})
 
-@csrf_protect
+@ensure_csrf_cookie
 def download_file(request):
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
@@ -66,7 +66,7 @@ def download_file(request):
             return response
     return render(request, 'index.html')
 
-@csrf_protect
+@ensure_csrf_cookie
 def download_update(request):
     functions.updateStarLink()
     file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
@@ -78,7 +78,7 @@ def download_update(request):
     raise Http404
 
 
-@csrf_protect
+@ensure_csrf_cookie
 def download_icon(request):
     file_path = os.path.join(settings.MEDIA_ROOT, 'satelliteimage.png')
     if os.path.exists(file_path):
