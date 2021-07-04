@@ -25,8 +25,8 @@ SECRET_KEY = '=k7s@comr40x3ixad$5@xk%bj7mm=rz7&-jc2q^w3!^)md(b7x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-STATIC_IP = 'localhost'
-ALLOWED_HOSTS = [STATIC_IP]
+STATIC_IP = '127.0.0.1'
+ALLOWED_HOSTS = ["*"]
 HOST_ROOT = ""
 
 # Application definition
@@ -94,8 +94,12 @@ WSGI_APPLICATION = 'satellite_tracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'satellite_tracker',
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT', 5432)
     }
 }
 

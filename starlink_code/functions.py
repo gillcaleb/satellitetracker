@@ -117,6 +117,7 @@ def setObserver(lat,lon,time):
     return station
 
 def networkLink(name,refresh):
+    updateDB()
     kml = simplekml.Kml()
     netlink = kml.newnetworklink(name="Network Link")
     netlink.link.href = 'http://'+ settings.STATIC_IP + ':8000/downloadupdate'
