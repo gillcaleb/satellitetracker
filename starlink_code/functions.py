@@ -4,10 +4,43 @@ import simplekml
 import requests
 import time
 import os
+from celery import shared_task
 from satellite_tracker import settings
 #from starlink_code.models import satelliteTLE
 
-satellite_array = []
+
+#Database functions============================================================
+
+#TODO:
+#1. Implement as background task that runs daily
+#2. Implement a "check" function to determine if the TLEs are newtext
+#3. Future: update multiple tables
+#Update database - this will run periodically
+@shared_task
+def updateDB():
+
+    #implement file hash comparison or last update check here
+
+    #Fetch data from Celestrak
+    sats = fetchTLES(settings.UPDATE_URL)
+
+    #Iterate over list of satellites
+    for sat in sats:
+
+        #Query based on name
+        q1 = satelliteTLE.objects.filter(name=sat[0].decode("utf-8"))
+
+        #if satellite is NOT present, add it to the table
+        if not q1:
+            if "FALCON" not in sat[0].decode("utf-8"):
+                s = satelliteTLE(name=sat[0].decode("utf-8"), L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
+                s.save()
+        #if satellite is present, update the TLE L1 and L2
+        else:
+            q1.update(L1=sat[1].decode("utf-8"), L2=sat[2].decode("utf-8"))
+
+    return
+
 
 #Fetch data from celestrak
 def fetchTLES(URL):
@@ -48,6 +81,9 @@ def networkLink(name,refresh):
 
     fetchTLES(settings.UPDATE_URL)
 
+
+def networkLink(name,refresh):
+    updateDB()
     kml = simplekml.Kml()
     netlink = kml.newnetworklink(name="Network Link")
     netlink.link.href =  settings.STATIC_IP + '/downloadupdate'
@@ -56,7 +92,8 @@ def networkLink(name,refresh):
     filename =  os.path.join(settings.MEDIA_ROOT, name)
     kml.save(filename)
     return
-
+    
+@shared_task
 def updateStarLink():
     file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
     if os.path.exists(file_path):
