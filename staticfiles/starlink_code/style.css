@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+  padding: 30px;
+}
+
+.navbar.navbar-light {
+  background-color: #79acd4;
+}
+
+#inputFormHead {
+  padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  #graphImage {
+    display: none;
+  }
+
+}

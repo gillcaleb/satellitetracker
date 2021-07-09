@@ -1,5 +1,5 @@
 from django.urls import path
-from starlink_code import views
+from starlink_code import views, functions
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -9,3 +9,6 @@ urlpatterns = [
     path('downloadicon', views.download_icon, name='di'),
     path('downloadupdate', views.download_update, name='du'),
 ]
+
+functions.networkLink("networklink.kml",65)
+functions.updateStarLink()

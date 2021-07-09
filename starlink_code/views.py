@@ -4,16 +4,16 @@ from starlink_code import functions
 from django.http import HttpResponse, Http404
 import os
 from .forms import configForm
+from django.views.decorators.csrf import ensure_csrf_cookie
 
+@ensure_csrf_cookie
 def test(request):
     functions.updateDB()
     return render(request, 'index.html')
 
+@ensure_csrf_cookie
 def index(request):
     if request.method == 'POST':
-        # if button is pressed, return default 10sec refresh with link to the starlink file
-        functions.networkLink("networklink.kml",10)
-        functions.updateStarLink()
         file_path = os.path.join(settings.MEDIA_ROOT, "networklink.kml")
         if os.path.exists(file_path):
             with open(file_path, 'rb') as fh:
@@ -23,6 +23,7 @@ def index(request):
         raise Http404
     return render(request, 'index.html')
 
+@ensure_csrf_cookie
 def get_form(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -55,18 +56,17 @@ def get_form(request):
 
     return render(request, 'form.html', {'form': form})
 
+@ensure_csrf_cookie
 def download_file(request):
-    functions.networkLink("networklink.kml",10)
-    functions.updateStarLink()
-
     file_path = os.path.join(settings.MEDIA_ROOT, "networkLink.kml")
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/vnd.google-earth.kml+xml")
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
-    raise Http404
+    return render(request, 'index.html')
 
+@ensure_csrf_cookie
 def download_update(request):
     functions.updateStarLink()
     file_path = os.path.join(settings.MEDIA_ROOT, "starlink.kml")
@@ -77,6 +77,8 @@ def download_update(request):
             return response
     raise Http404
 
+
+@ensure_csrf_cookie
 def download_icon(request):
     file_path = os.path.join(settings.MEDIA_ROOT, 'satelliteimage.png')
     if os.path.exists(file_path):

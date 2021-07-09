@@ -11,13 +11,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+#import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+CSRF_HEADER_NAME = "HTTP_X_XSRF_TOKEN"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=k7s@comr40x3ixad$5@xk%bj7mm=rz7&-jc2q^w3!^)md(b7x'
@@ -41,10 +44,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'starlink_code',
     'crispy_forms',
-    'background_task',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,16 +61,19 @@ MIDDLEWARE = [
 ]
 
 
+
+
 #non default additions to settings.py
 CORS_ORIGIN_ALLOW_ALL = False
-
+CORS_REPLACE_HTTPS_REFERER = True
 CORS_ORIGIN_WHITELIST = (
     'https://earth.google.com',
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #end additions
-
+CSRF_COOKIE_DOMAIN = ['.google.com', 'starlinksatelliteapp.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['.google.com', 'starlinksatelliteapp.herokuapp.com']
 ROOT_URLCONF = 'satellite_tracker.urls'
 
 TEMPLATES = [
@@ -91,6 +97,20 @@ WSGI_APPLICATION = 'satellite_tracker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+#DATABASES = {
+#   'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
+# False if not in os.environ
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 
 DATABASES = {
     'default': {
@@ -165,13 +185,39 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+MEDIA = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+#PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 
-STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+#HEROKU FILES
+#PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=TLE'
-#UPDATE_URL = 'https://celestrak.com/NORAD/elements/gp.php?GROUP=GEO&FORMAT=TLE'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+#STATIC_URL = '/static/'
+
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Extra places for collectstatic to find static files.
+#STATICFILES_DIRS = (
+#    os.path.join(PROJECT_ROOT, 'static'),
+#)
