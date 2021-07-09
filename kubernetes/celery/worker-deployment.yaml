@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: starlinkv2
+  name: celery-worker
   labels:
-    app: starlink
+    deployment: celery-worker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: starlink-container
+      pod: celery-worker
   template:
     metadata:
       labels:
-        app: starlink-container
+        pod: celery-worker
     spec:
       containers:
-        - name: satellitetracker
+        - name: celery-worker
           image: localhost:5000/satellitetracker:0.1.3
-          command: ['/bin/bash', 'run.sh'] # runs migrations and starts the server
-          ports:
-            - containerPort: 8000
+          command: ['celery', '-A', 'satellite_tracker', 'worker', '-l', 'INFO']
           env:
             - name: POSTGRES_USER
               valueFrom:

@@ -5,6 +5,7 @@ import simplekml
 import requests
 import time
 import os
+from celery import shared_task
 from satellite_tracker import settings
 from starlink_code.models import satelliteTLE
 
@@ -15,6 +16,7 @@ from starlink_code.models import satelliteTLE
 #2. Implement a "check" function to determine if the TLEs are newtext
 #3. Future: update multiple tables
 #Update database - this will run periodically
+@shared_task
 def updateDB():
 
     #implement file hash comparison or last update check here
@@ -126,7 +128,8 @@ def networkLink(name,refresh):
     filename =  os.path.join(settings.MEDIA_ROOT, name)
     kml.save(filename)
     return
-
+    
+@shared_task
 def updateStarLink():
     file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')
     if os.path.exists(file_path):
