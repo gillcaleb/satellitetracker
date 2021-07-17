@@ -1,0 +1,15 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: server-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /data/postgres-pv

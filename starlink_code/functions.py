@@ -119,7 +119,6 @@ def setObserver(lat,lon,time):
     return station
 
 def networkLink(name,refresh):
-    updateDB()
     kml = simplekml.Kml()
     netlink = kml.newnetworklink(name="Network Link")
     netlink.link.href = 'http://'+ settings.STATIC_IP + ':8000/downloadupdate'
@@ -128,7 +127,7 @@ def networkLink(name,refresh):
     filename =  os.path.join(settings.MEDIA_ROOT, name)
     kml.save(filename)
     return
-    
+
 @shared_task
 def updateStarLink():
     file_path = os.path.join(settings.MEDIA_ROOT, 'starlink.kml')

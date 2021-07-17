@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: flower
-        image: localhost:5000/satellitetracker:0.1.3
+        image: localhost:5000/satellitetracker:0.1.7
         command: ['celery', 'flower', '-A', 'satellite_tracker']
         ports:
           - containerPort: 5555
